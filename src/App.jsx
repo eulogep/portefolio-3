@@ -1,3 +1,14 @@
+/**
+ * Portfolio Personnel - MABIALA EULOGE
+ * Étudiant Ingénieur Informatique - ESIEA
+ * 
+ * Portfolio moderne et responsive créé avec React, Vite, Tailwind CSS et Framer Motion
+ * 
+ * @author MABIALA EULOGE
+ * @version 1.0.0
+ * @created 2024-2025
+ */
+
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, Moon, Sun } from 'lucide-react';

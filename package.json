@@ -3,6 +3,10 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "author": "MABIALA EULOGE",
+  "description": "Portfolio personnel moderne créé par MABIALA EULOGE - Étudiant Ingénieur Informatique ESIEA",
+  "keywords": ["portfolio", "react", "vite", "tailwind", "framer-motion", "student", "engineer"],
+  "license": "MIT",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

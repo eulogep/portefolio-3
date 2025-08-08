@@ -1,7 +1,13 @@
 /**
  * Données du portfolio personnel
- * Créé par Euloge Mabiala - Portfolio Ultra
+ * Créé par MABIALA EULOGE - Portfolio Ultra
+ * Étudiant Ingénieur Informatique - ESIEA
+ * 
  * Informations personnelles, projets, compétences et expériences
+ * 
+ * @author MABIALA EULOGE
+ * @version 1.0.0
+ * @created 2024-2025
  */
 
 export const personalInfo = {
@@ -12,7 +18,7 @@ export const personalInfo = {
   email: 'mabiala@et.esiea.fr',
   linkedin: 'https://www.linkedin.com/in/euloge-junior-mabiala',
   github: 'https://github.com/eulogep',
-  phone: '+33 X XX XX XX XX',
+  phone: '+33760830931',
   location: 'Paris, France',
   availability: 'Disponible pour alternance à partir de septembre 2025'
 };
