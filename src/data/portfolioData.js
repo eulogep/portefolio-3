@@ -87,7 +87,7 @@ export const projects = [
 Accédez à la démo locale, au code source et au README ci-dessous.`,
     technologies: ['Vue.js', 'Pinia', 'Cypress', 'JavaScript', 'HTML', 'CSS'],
     image: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&h=600&fit=crop',
-    github: '/projet en plus/',
+    github: 'https://github.com/eulogep/double-calculatrice',
     demo: 'https://eulogep.github.io/double-calculatrice/',
     status: 'terminé',
     featured: true,
