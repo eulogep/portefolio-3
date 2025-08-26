@@ -1,18 +1,24 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  Github, 
-  ExternalLink, 
-  X, 
-  Calendar, 
-  Users, 
+import {
+  Github,
+  ExternalLink,
+  X,
+  Calendar,
+  Users,
   TrendingUp,
   CheckCircle,
   Clock,
   FileText,
-  Filter
+  Filter,
+  Sparkles,
+  Star
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import ShinyText from '@/components/ui/shiny-text';
+import SplitText from '@/components/ui/split-text';
+import MagneticButton from '@/components/ui/magnetic-button';
+import ParticleButton from '@/components/ui/particle-button';
 import { projects } from '../data/portfolioData';
 
 const Projects = () => {
@@ -69,14 +75,28 @@ const Projects = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
-            Mes Projets
-          </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-orange-500 mx-auto mb-8" />
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Une sélection de projets qui démontrent mes compétences techniques 
+          <ShinyText className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
+            <SplitText delay={0.1}>
+              Mes Projets
+            </SplitText>
+          </ShinyText>
+          <motion.div
+            className="w-24 h-1 bg-gradient-to-r from-blue-500 to-orange-500 mx-auto mb-8"
+            initial={{ width: 0 }}
+            whileInView={{ width: 96 }}
+            transition={{ duration: 1, delay: 0.5 }}
+            viewport={{ once: true }}
+          />
+          <motion.p
+            className="text-xl text-gray-600 max-w-3xl mx-auto"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.8 }}
+            viewport={{ once: true }}
+          >
+            Une sélection de projets qui démontrent mes compétences techniques
             et ma passion pour l'innovation technologique.
-          </p>
+          </motion.p>
         </motion.div>
 
         {/* Filter Buttons */}
@@ -87,28 +107,38 @@ const Projects = () => {
           viewport={{ once: true }}
           className="flex flex-wrap justify-center gap-3 mb-12"
         >
-          {filterOptions.map((option) => (
-            <motion.button
-              key={option.value}
-              onClick={() => setFilter(option.value)}
-              className={`px-4 py-2 rounded-full font-medium transition-all duration-300 flex items-center gap-2 ${
-                filter === option.value
-                  ? 'bg-gradient-to-r from-blue-500 to-orange-500 text-white shadow-lg'
-                  : 'bg-white text-gray-700 hover:bg-gray-100 border border-gray-200'
-              }`}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <Filter className="w-4 h-4" />
-              {option.label}
-              <span className={`text-xs px-2 py-1 rounded-full ${
-                filter === option.value 
-                  ? 'bg-white/20 text-white' 
-                  : 'bg-gray-200 text-gray-600'
-              }`}>
-                {option.count}
-              </span>
-            </motion.button>
+          {filterOptions.map((option, index) => (
+            <MagneticButton key={option.value} strength={0.2}>
+              <motion.button
+                onClick={() => setFilter(option.value)}
+                className={`px-4 py-2 rounded-full font-medium transition-all duration-300 flex items-center gap-2 relative overflow-hidden ${
+                  filter === option.value
+                    ? 'bg-gradient-to-r from-blue-500 to-orange-500 text-white shadow-lg'
+                    : 'bg-white text-gray-700 hover:bg-gray-100 border border-gray-200'
+                }`}
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.95 }}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1 }}
+              >
+                <motion.div
+                  className="absolute inset-0 bg-gradient-to-r from-blue-400/20 to-orange-400/20"
+                  initial={{ x: '-100%' }}
+                  whileHover={{ x: '100%' }}
+                  transition={{ duration: 0.6 }}
+                />
+                <Filter className="w-4 h-4 relative z-10" />
+                <span className="relative z-10">{option.label}</span>
+                <span className={`text-xs px-2 py-1 rounded-full relative z-10 ${
+                  filter === option.value
+                    ? 'bg-white/20 text-white'
+                    : 'bg-gray-200 text-gray-600'
+                }`}>
+                  {option.count}
+                </span>
+              </motion.button>
+            </MagneticButton>
           ))}
         </motion.div>
 
@@ -131,9 +161,17 @@ const Projects = () => {
               >
                 {/* Featured Badge */}
                 {project.featured && (
-                  <div className="absolute top-4 left-4 z-10 bg-gradient-to-r from-orange-500 to-red-500 text-white px-3 py-1 rounded-full text-xs font-bold">
-                    ⭐ Phare
-                  </div>
+                  <motion.div
+                    className="absolute top-4 left-4 z-10 bg-gradient-to-r from-orange-500 to-red-500 text-white px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1"
+                    initial={{ scale: 0, rotate: -180 }}
+                    animate={{ scale: 1, rotate: 0 }}
+                    transition={{ delay: index * 0.1 + 0.3, type: "spring", stiffness: 200 }}
+                    whileHover={{ scale: 1.1, rotate: 5 }}
+                  >
+                    <Star className="w-3 h-3" fill="currentColor" />
+                    <span>Phare</span>
+                    <Sparkles className="w-3 h-3" />
+                  </motion.div>
                 )}
 
                 {/* Status Badge */}
@@ -154,25 +192,35 @@ const Projects = () => {
                   
                   {/* Hover Actions */}
                   <div className="absolute inset-0 flex items-center justify-center gap-3 opacity-0 group-hover:opacity-100 transition-all duration-300">
-                    <motion.button
-                      onClick={() => setSelectedProject(project)}
-                      className="p-3 bg-white/90 rounded-full hover:bg-white transition-colors duration-200"
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.9 }}
-                    >
-                      <ExternalLink className="w-5 h-5 text-gray-700" />
-                    </motion.button>
-                    {project.github && (
-                      <motion.a
-                        href={project.github}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="p-3 bg-white/90 rounded-full hover:bg-white transition-colors duration-200"
-                        whileHover={{ scale: 1.1 }}
+                    <MagneticButton strength={0.4}>
+                      <motion.button
+                        onClick={() => setSelectedProject(project)}
+                        className="p-3 bg-white/90 backdrop-blur-sm rounded-full hover:bg-white transition-colors duration-200 border border-white/20"
+                        whileHover={{ scale: 1.2, rotate: 10 }}
                         whileTap={{ scale: 0.9 }}
+                        initial={{ scale: 0, rotate: -180 }}
+                        animate={{ scale: 1, rotate: 0 }}
+                        transition={{ delay: 0.1 }}
                       >
-                        <Github className="w-5 h-5 text-gray-700" />
-                      </motion.a>
+                        <ExternalLink className="w-5 h-5 text-gray-700" />
+                      </motion.button>
+                    </MagneticButton>
+                    {project.github && (
+                      <MagneticButton strength={0.4}>
+                        <motion.a
+                          href={project.github}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="p-3 bg-white/90 backdrop-blur-sm rounded-full hover:bg-white transition-colors duration-200 border border-white/20"
+                          whileHover={{ scale: 1.2, rotate: -10 }}
+                          whileTap={{ scale: 0.9 }}
+                          initial={{ scale: 0, rotate: 180 }}
+                          animate={{ scale: 1, rotate: 0 }}
+                          transition={{ delay: 0.2 }}
+                        >
+                          <Github className="w-5 h-5 text-gray-700" />
+                        </motion.a>
+                      </MagneticButton>
                     )}
                   </div>
                 </div>
@@ -311,27 +359,27 @@ const Projects = () => {
                       {/* Actions */}
                       <div className="space-y-3">
                         {selectedProject.demo && (
-                          <Button
-                            asChild
+                          <ParticleButton
                             className="w-full bg-gradient-to-r from-blue-500 to-orange-500 hover:from-blue-600 hover:to-orange-600"
+                            onClick={() => window.open(selectedProject.demo, '_blank', 'noopener noreferrer')}
                           >
-                            <a href={selectedProject.demo} target="_blank" rel="noopener noreferrer">
-                              <ExternalLink className="w-4 h-4 mr-2" />
-                              Voir la démo
-                            </a>
-                          </Button>
+                            <ExternalLink className="w-4 h-4 mr-2" />
+                            Voir la démo
+                          </ParticleButton>
                         )}
                         {selectedProject.github && (
-                          <Button
-                            asChild
-                            variant="outline"
-                            className="w-full"
-                          >
-                            <a href={selectedProject.github} target="_blank" rel="noopener noreferrer">
-                              <Github className="w-4 h-4 mr-2" />
-                              Code source
-                            </a>
-                          </Button>
+                          <MagneticButton strength={0.3} className="w-full">
+                            <Button
+                              asChild
+                              variant="outline"
+                              className="w-full hover:bg-gray-50 transition-all duration-300"
+                            >
+                              <a href={selectedProject.github} target="_blank" rel="noopener noreferrer">
+                                <Github className="w-4 h-4 mr-2" />
+                                Code source
+                              </a>
+                            </Button>
+                          </MagneticButton>
                         )}
                       </div>
                     </div>
@@ -347,4 +395,3 @@ const Projects = () => {
 };
 
 export default Projects;
-
