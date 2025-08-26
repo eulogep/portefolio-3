@@ -38,7 +38,7 @@ const FuturisticProjects = () => {
               opacity: 1,
               scale: 1,
               duration: 1.2,
-              ease: "power3.out",
+              ease: "easeOut",
               scrollTrigger: {
                 trigger: card,
                 start: "top 80%",
@@ -56,7 +56,7 @@ const FuturisticProjects = () => {
               z: 50,
               scale: 1.05,
               duration: 0.4,
-              ease: "power2.out"
+              ease: "easeOut"
             });
           };
 
@@ -67,7 +67,7 @@ const FuturisticProjects = () => {
               z: 0,
               scale: 1,
               duration: 0.4,
-              ease: "power2.out"
+              ease: "easeOut"
             });
           };
 
