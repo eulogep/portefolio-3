@@ -35,7 +35,7 @@ const FuturisticContact = () => {
             x: Math.sin(index) * 50,
             rotation: 360,
             duration: 4 + index,
-            ease: "power2.inOut",
+            ease: "easeInOut",
             yoyo: true,
             repeat: -1
           });
@@ -57,7 +57,7 @@ const FuturisticContact = () => {
               opacity: 1,
               rotationX: 0,
               duration: 0.8,
-              ease: "power3.out",
+              ease: "easeOut",
               scrollTrigger: {
                 trigger: element,
                 start: "top 85%",
@@ -75,7 +75,7 @@ const FuturisticContact = () => {
         gsap.to(scanLine, {
           y: 400,
           duration: 3,
-          ease: "power2.inOut",
+          ease: "easeInOut",
           repeat: -1,
           yoyo: true
         });
