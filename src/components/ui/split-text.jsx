@@ -3,21 +3,22 @@ import { cn } from '@/lib/utils';
 
 const SplitText = ({ 
   children, 
-  className = "",
+  className,
   delay = 0,
-  duration = 0.05,
-  animateOnView = true,
+  duration = 0.5,
+  stagger = 0.1,
   ...props 
 }) => {
-  const letters = children.split('');
+  const text = typeof children === 'string' ? children : '';
+  const words = text.split(' ');
 
   const container = {
     hidden: { opacity: 0 },
     visible: (i = 1) => ({
       opacity: 1,
       transition: { 
-        staggerChildren: duration, 
-        delayChildren: delay * i 
+        staggerChildren: stagger, 
+        delayChildren: delay 
       },
     }),
   };
@@ -30,6 +31,7 @@ const SplitText = ({
         type: "spring",
         damping: 12,
         stiffness: 100,
+        duration: duration
       },
     },
     hidden: {
@@ -39,6 +41,7 @@ const SplitText = ({
         type: "spring",
         damping: 12,
         stiffness: 100,
+        duration: duration
       },
     },
   };
@@ -48,19 +51,17 @@ const SplitText = ({
       className={cn("overflow-hidden", className)}
       variants={container}
       initial="hidden"
-      animate={animateOnView ? "visible" : "hidden"}
-      whileInView={animateOnView ? "visible" : undefined}
+      whileInView="visible"
       viewport={{ once: true }}
       {...props}
     >
-      {letters.map((letter, index) => (
+      {words.map((word, index) => (
         <motion.span
           key={index}
           variants={child}
-          className="inline-block"
-          style={{ display: letter === ' ' ? 'inline' : 'inline-block' }}
+          className="inline-block mr-2"
         >
-          {letter === ' ' ? '\u00A0' : letter}
+          {word}
         </motion.span>
       ))}
     </motion.div>
