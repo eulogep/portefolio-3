@@ -252,7 +252,9 @@ function App() {
               viewport={{ once: true }}
               className="text-sm text-gray-500"
             >
-              <p>© 2025 Euloge Mabiala. Conçu avec 💙 et beaucoup de ���</p>
+              <p className="flex items-center justify-center gap-2 flex-wrap">
+                © 2025 Euloge Mabiala. Conçu avec <AnimatedHeart size={16} /> et beaucoup de <AnimatedCoffee size={16} />
+              </p>
               <p className="mt-1">
                 Portfolio futuriste propulsé par{' '}
                 <span className="text-cyan-400 font-medium">React</span>,{' '}
