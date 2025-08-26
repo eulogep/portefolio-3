@@ -91,7 +91,7 @@ function App() {
               y: 0,
               opacity: 1,
               duration: 1,
-              ease: "power2.out",
+              ease: "easeOut",
               scrollTrigger: {
                 trigger: section,
                 start: "top 80%",
@@ -138,7 +138,7 @@ function App() {
     gsap.to(window, {
       scrollTo: { y: 0 },
       duration: 1.5,
-      ease: "power3.out"
+      ease: "easeOut"
     });
   };
 
