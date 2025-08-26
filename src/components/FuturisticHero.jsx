@@ -26,7 +26,7 @@ const FuturisticHero = () => {
           opacity: 1, 
           scale: 1, 
           duration: 1.5,
-          ease: "power3.out",
+          ease: "easeOut",
           delay: 0.5
         }
       );
@@ -43,7 +43,7 @@ const FuturisticHero = () => {
       gsap.to(orbRef.current, {
         y: -20,
         duration: 3,
-        ease: "power2.inOut",
+        ease: "easeInOut",
         yoyo: true,
         repeat: -1
       });
@@ -57,7 +57,7 @@ const FuturisticHero = () => {
             rotation: 360,
             opacity: 0,
             duration: 3 + Math.random() * 2,
-            ease: "power2.out",
+            ease: "easeOut",
             repeat: -1,
             delay: index * 0.2
           });
@@ -93,7 +93,7 @@ const FuturisticHero = () => {
           x: e.clientX,
           y: e.clientY,
           duration: 0.3,
-          ease: "power2.out"
+          ease: "easeOut"
         });
       }
     };
