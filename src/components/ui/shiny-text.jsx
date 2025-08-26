@@ -3,31 +3,35 @@ import { cn } from '@/lib/utils';
 
 const ShinyText = ({ 
   children, 
-  className = "", 
+  className,
   shimmerWidth = 100,
+  shimmerColor = "rgba(255, 255, 255, 0.3)",
+  duration = 2,
   ...props 
 }) => {
   return (
     <motion.div
-      className={cn("relative inline-block overflow-hidden", className)}
+      className={cn(
+        "relative inline-block overflow-hidden",
+        className
+      )}
       {...props}
     >
-      <span className="relative z-10">{children}</span>
+      {children}
       <motion.div
-        className="absolute inset-0 z-0"
+        className="absolute inset-0 -top-2 -bottom-2"
         style={{
-          background: `linear-gradient(110deg, transparent 25%, rgba(255, 255, 255, 0.6) 50%, transparent 75%)`,
-          width: `${shimmerWidth}%`,
-          transform: 'translateX(-100%)',
+          background: `linear-gradient(90deg, transparent, ${shimmerColor}, transparent)`,
+          width: `${shimmerWidth}px`,
         }}
         animate={{
-          transform: ['translateX(-100%)', 'translateX(200%)'],
+          x: [-shimmerWidth, '100%', '100%']
         }}
         transition={{
-          duration: 2,
-          ease: "linear",
+          duration: duration,
           repeat: Infinity,
           repeatDelay: 3,
+          ease: "easeInOut"
         }}
       />
     </motion.div>
