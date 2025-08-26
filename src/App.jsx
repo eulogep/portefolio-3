@@ -15,6 +15,8 @@ import { motion } from 'framer-motion';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowUp, Zap } from 'lucide-react';
+import AnimatedHeart from './components/ui/animated-heart';
+import AnimatedCoffee from './components/ui/animated-coffee';
 
 // Composants futuristes
 import FuturisticNavigation from './components/FuturisticNavigation';
@@ -250,7 +252,7 @@ function App() {
               viewport={{ once: true }}
               className="text-sm text-gray-500"
             >
-              <p>© 2025 Euloge Mabiala. Conçu avec 💙 et beaucoup de ☕</p>
+              <p>© 2025 Euloge Mabiala. Conçu avec 💙 et beaucoup de ���</p>
               <p className="mt-1">
                 Portfolio futuriste propulsé par{' '}
                 <span className="text-cyan-400 font-medium">React</span>,{' '}
