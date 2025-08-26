@@ -31,7 +31,7 @@ const FuturisticAbout = () => {
               rotationX: 0,
               scale: 1,
               duration: 1,
-              ease: "power3.out",
+              ease: "easeOut",
               scrollTrigger: {
                 trigger: card,
                 start: "top 80%",
@@ -57,7 +57,7 @@ const FuturisticAbout = () => {
               x: 0,
               opacity: 1,
               duration: 0.8,
-              ease: "power2.out",
+              ease: "easeOut",
               scrollTrigger: {
                 trigger: item,
                 start: "top 85%",
@@ -93,7 +93,7 @@ const FuturisticAbout = () => {
 
           gsap.to({}, {
             duration: 2,
-            ease: "power2.out",
+            ease: "easeOut",
             scrollTrigger: {
               trigger: stat,
               start: "top 80%",
