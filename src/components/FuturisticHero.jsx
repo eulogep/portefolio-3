@@ -271,15 +271,71 @@ const FuturisticHero = () => {
                   }}
                   transition={{ type: 'spring', stiffness: 100, damping: 20 }}
                 >
-                  {/* Orbe centrale */}
-                  <div 
+                  {/* Orbe centrale avec photo professionnelle */}
+                  <div
                     ref={orbRef}
                     className="absolute inset-8 bg-gradient-to-r from-cyan-400 to-blue-600 rounded-full shadow-2xl shadow-cyan-400/50"
                   >
+                    {/* Cadre holographique externe */}
                     <div className="absolute inset-2 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full shadow-inner">
-                      <div className="absolute inset-4 bg-gradient-to-r from-cyan-300 to-blue-400 rounded-full shadow-inner flex items-center justify-center">
-                        <Zap className="w-16 h-16 text-white animate-pulse" />
+                      {/* Conteneur image avec effets */}
+                      <div className="absolute inset-4 rounded-full overflow-hidden border-2 border-cyan-300/50 shadow-inner">
+                        {/* Image de profil */}
+                        <motion.img
+                          src="https://cdn.builder.io/api/v1/image/assets%2F76eae3a0da234018810650d19cb2619e%2F908872988d904393ae907200811c2e75?format=webp&width=800"
+                          alt={personalInfo.name}
+                          className="w-full h-full object-cover"
+                          whileHover={{ scale: 1.1 }}
+                          transition={{ duration: 0.3 }}
+                        />
+
+                        {/* Overlay holographique */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-cyan-400/20 via-transparent to-purple-400/20 pointer-events-none" />
+
+                        {/* Ligne de scan futuriste */}
+                        <motion.div
+                          className="absolute inset-0 bg-gradient-to-b from-transparent via-cyan-400/40 to-transparent h-2"
+                          animate={{
+                            y: [-8, '100%', '100%', -8]
+                          }}
+                          transition={{
+                            duration: 3,
+                            repeat: Infinity,
+                            ease: "easeInOut",
+                            repeatDelay: 2
+                          }}
+                        />
+
+                        {/* Effet de brillance */}
+                        <motion.div
+                          className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -rotate-45"
+                          animate={{
+                            x: ['-100%', '200%']
+                          }}
+                          transition={{
+                            duration: 2,
+                            repeat: Infinity,
+                            repeatDelay: 4,
+                            ease: "easeInOut"
+                          }}
+                        />
                       </div>
+
+                      {/* Indicateur d'activité */}
+                      <motion.div
+                        className="absolute bottom-2 right-2 w-4 h-4 bg-green-400 rounded-full shadow-lg"
+                        animate={{
+                          scale: [1, 1.3, 1],
+                          opacity: [1, 0.7, 1]
+                        }}
+                        transition={{
+                          duration: 2,
+                          repeat: Infinity,
+                          ease: "easeInOut"
+                        }}
+                      >
+                        <div className="absolute inset-0 bg-green-400 rounded-full animate-ping opacity-30" />
+                      </motion.div>
                     </div>
                   </div>
 
