@@ -32,7 +32,7 @@ const FuturisticSkills = () => {
               width: `${percentage}%`,
               opacity: 1,
               duration: 1.5,
-              ease: "power3.out",
+              ease: "easeOut",
               scrollTrigger: {
                 trigger: bar,
                 start: "top 80%",
@@ -46,7 +46,7 @@ const FuturisticSkills = () => {
           gsap.to(progressBar, {
             boxShadow: "0 0 20px rgba(0, 255, 255, 0.5)",
             duration: 2,
-            ease: "power2.inOut",
+            ease: "easeInOut",
             yoyo: true,
             repeat: -1,
             scrollTrigger: {
@@ -94,7 +94,7 @@ const FuturisticSkills = () => {
               z: 0,
               opacity: 1,
               duration: 1,
-              ease: "power3.out",
+              ease: "easeOut",
               scrollTrigger: {
                 trigger: card,
                 start: "top 85%",
@@ -115,7 +115,7 @@ const FuturisticSkills = () => {
             rotation: 360,
             opacity: 0,
             duration: 4 + Math.random() * 2,
-            ease: "power2.out",
+            ease: "easeOut",
             repeat: -1,
             delay: Math.random() * 2
           });
