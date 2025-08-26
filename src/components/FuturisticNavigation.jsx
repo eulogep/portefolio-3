@@ -61,7 +61,7 @@ const FuturisticNavigation = () => {
               y: 0,
               duration: 0.6,
               delay: index * 0.1,
-              ease: "power3.out"
+              ease: "easeOut"
             }
           );
         }
@@ -123,7 +123,7 @@ const FuturisticNavigation = () => {
         }`}
         initial={{ y: -100 }}
         animate={{ y: 0 }}
-        transition={{ duration: 0.8, ease: "power3.out" }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
       >
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between h-20">
