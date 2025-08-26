@@ -1,200 +1,308 @@
 /**
- * Portfolio Personnel - MABIALA EULOGE
+ * Portfolio Futuriste - MABIALA EULOGE
  * Étudiant Ingénieur Informatique - ESIEA
  * 
- * Portfolio moderne et responsive créé avec React, Vite, Tailwind CSS et Framer Motion
+ * Portfolio révolutionnaire avec animations GSAP et design futuriste
+ * Architecte du futur numérique
  * 
  * @author MABIALA EULOGE
- * @version 1.0.0
+ * @version 2.0.0 - Futuristic Edition
  * @created 2024-2025
  */
 
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Moon, Sun } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import Hero from './components/Hero';
-import About from './components/About';
-import Skills from './components/Skills';
-import Projects from './components/Projects';
-import Contact from './components/Contact';
+import { useEffect, useRef } from 'react';
+import { motion } from 'framer-motion';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { ArrowUp, Zap } from 'lucide-react';
+
+// Composants futuristes
+import FuturisticNavigation from './components/FuturisticNavigation';
+import FuturisticHero from './components/FuturisticHero';
+import FuturisticAbout from './components/FuturisticAbout';
+import FuturisticSkills from './components/FuturisticSkills';
+import FuturisticProjects from './components/FuturisticProjects';
+import FuturisticContact from './components/FuturisticContact';
+
 import './App.css';
 
+// Enregistrement des plugins GSAP
+gsap.registerPlugin(ScrollTrigger);
+
 function App() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(false);
-  const [scrollY, setScrollY] = useState(0);
+  const appRef = useRef();
+  const scrollButtonRef = useRef();
 
   useEffect(() => {
-    const handleScroll = () => setScrollY(window.scrollY);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    const ctx = gsap.context(() => {
+      // Configuration globale de GSAP
+      gsap.config({
+        force3D: true,
+        nullTargetWarn: false
+      });
+
+      // Animation du bouton de scroll avec magnétisme
+      if (scrollButtonRef.current) {
+        gsap.set(scrollButtonRef.current, { 
+          scale: 0.8, 
+          opacity: 0,
+          rotation: -180
+        });
+
+        ScrollTrigger.create({
+          start: "top -500",
+          end: "max",
+          toggleActions: "play none none reverse",
+          onEnter: () => {
+            gsap.to(scrollButtonRef.current, {
+              scale: 1,
+              opacity: 1,
+              rotation: 0,
+              duration: 0.5,
+              ease: "back.out(1.7)"
+            });
+          },
+          onLeave: () => {
+            gsap.to(scrollButtonRef.current, {
+              scale: 0.8,
+              opacity: 0,
+              rotation: 180,
+              duration: 0.3
+            });
+          }
+        });
+
+        // Effet de rotation continue
+        gsap.to(scrollButtonRef.current.querySelector('.icon-rotate'), {
+          rotation: 360,
+          duration: 3,
+          ease: "none",
+          repeat: -1
+        });
+      }
+
+      // Parallax global pour les sections
+      const sections = gsap.utils.toArray('section');
+      sections.forEach((section, index) => {
+        if (section.id !== 'hero') {
+          gsap.fromTo(section, 
+            { y: 50, opacity: 0.8 },
+            {
+              y: 0,
+              opacity: 1,
+              duration: 1,
+              ease: "power2.out",
+              scrollTrigger: {
+                trigger: section,
+                start: "top 80%",
+                end: "bottom 20%",
+                toggleActions: "play none none reverse"
+              }
+            }
+          );
+        }
+      });
+
+      // Effet de curseur personnalisé pour toute l'app
+      const cursor = document.querySelector('.custom-cursor');
+      if (cursor) {
+        let mouseX = 0, mouseY = 0;
+        let cursorX = 0, cursorY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+          mouseX = e.clientX;
+          mouseY = e.clientY;
+        });
+
+        const animateCursor = () => {
+          cursorX += (mouseX - cursorX) * 0.1;
+          cursorY += (mouseY - cursorY) * 0.1;
+          
+          gsap.set(cursor, {
+            x: cursorX,
+            y: cursorY
+          });
+          
+          requestAnimationFrame(animateCursor);
+        };
+        
+        animateCursor();
+      }
+
+    }, appRef);
+
+    return () => ctx.revert();
   }, []);
 
-  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
-  const toggleDarkMode = () => setIsDarkMode(!isDarkMode);
-
-  const scrollToSection = (sectionId) => {
-    document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
-    setIsMenuOpen(false);
+  const scrollToTop = () => {
+    gsap.to(window, {
+      scrollTo: { y: 0 },
+      duration: 1.5,
+      ease: "power3.out"
+    });
   };
 
-  const navItems = [
-    { id: 'hero', label: 'Accueil' },
-    { id: 'about', label: 'À propos' },
-    { id: 'skills', label: 'Compétences' },
-    { id: 'projects', label: 'Projets' },
-    { id: 'contact', label: 'Contact' }
-  ];
-
   return (
-    <div className={`min-h-screen ${isDarkMode ? 'dark' : ''}`}>
-      {/* Navigation */}
-      <motion.nav
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          scrollY > 50 
-            ? 'bg-white/90 backdrop-blur-md shadow-lg dark:bg-gray-900/90' 
-            : 'bg-transparent'
-        }`}
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.6 }}
-      >
-        <div className="container mx-auto px-4">
-          <div className="flex items-center justify-between h-16">
-            {/* Logo */}
-            <motion.div
-              className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-orange-500 bg-clip-text text-transparent"
-              whileHover={{ scale: 1.05 }}
-            >
-              EM
-            </motion.div>
+    <div ref={appRef} className="relative bg-slate-900 overflow-x-hidden">
+      
+      {/* Curseur personnalisé futuriste */}
+      <div className="custom-cursor fixed w-8 h-8 pointer-events-none z-[60] mix-blend-difference">
+        <div className="w-full h-full border-2 border-cyan-400 rounded-full opacity-80">
+          <div className="absolute inset-1 bg-cyan-400/20 rounded-full animate-pulse" />
+        </div>
+      </div>
 
-            {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center space-x-8">
-              {navItems.map((item) => (
-                <motion.button
-                  key={item.id}
-                  onClick={() => scrollToSection(item.id)}
-                  className={`font-medium transition-colors duration-200 ${
-                    scrollY > 50 
-                      ? 'text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400' 
-                      : 'text-white hover:text-blue-200'
-                  }`}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  {item.label}
-                </motion.button>
-              ))}
-              
-              {/* Dark Mode Toggle */}
-              <motion.button
-                onClick={toggleDarkMode}
-                className={`p-2 rounded-full transition-colors duration-200 ${
-                  scrollY > 50 
-                    ? 'text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800' 
-                    : 'text-white hover:bg-white/20'
-                }`}
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-              >
-                {isDarkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
-              </motion.button>
-            </div>
-
-            {/* Mobile Menu Button */}
-            <div className="md:hidden flex items-center space-x-2">
-              <motion.button
-                onClick={toggleDarkMode}
-                className={`p-2 rounded-full transition-colors duration-200 ${
-                  scrollY > 50 
-                    ? 'text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800' 
-                    : 'text-white hover:bg-white/20'
-                }`}
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-              >
-                {isDarkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
-              </motion.button>
-              
-              <motion.button
-                onClick={toggleMenu}
-                className={`p-2 rounded-full transition-colors duration-200 ${
-                  scrollY > 50 
-                    ? 'text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800' 
-                    : 'text-white hover:bg-white/20'
-                }`}
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-              >
-                {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-              </motion.button>
-            </div>
-          </div>
+      {/* Fond cosmique animé */}
+      <div className="fixed inset-0 z-0">
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-purple-900/30 to-slate-900" />
+        
+        {/* Étoiles scintillantes */}
+        <div className="absolute inset-0">
+          {Array.from({ length: 100 }).map((_, i) => (
+            <div
+              key={i}
+              className="absolute w-1 h-1 bg-white rounded-full opacity-60 animate-pulse"
+              style={{
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+                animationDelay: `${Math.random() * 3}s`,
+                animationDuration: `${2 + Math.random() * 2}s`
+              }}
+            />
+          ))}
         </div>
 
-        {/* Mobile Menu */}
-        <AnimatePresence>
-          {isMenuOpen && (
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.3 }}
-              className="md:hidden bg-white/95 backdrop-blur-md dark:bg-gray-900/95 border-t border-gray-200 dark:border-gray-700"
-            >
-              <div className="container mx-auto px-4 py-4">
-                <div className="flex flex-col space-y-4">
-                  {navItems.map((item, index) => (
-                    <motion.button
-                      key={item.id}
-                      onClick={() => scrollToSection(item.id)}
-                      className="text-left font-medium text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 transition-colors duration-200"
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.3, delay: index * 0.1 }}
-                    >
-                      {item.label}
-                    </motion.button>
-                  ))}
-                </div>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </motion.nav>
+        {/* Nébuleuse en mouvement */}
+        <motion.div
+          className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-cyan-400/10 to-purple-400/10 rounded-full blur-3xl"
+          animate={{
+            x: [0, 100, 0],
+            y: [0, -50, 0],
+            scale: [1, 1.2, 1]
+          }}
+          transition={{
+            duration: 20,
+            repeat: Infinity,
+            ease: "linear"
+          }}
+        />
+        
+        <motion.div
+          className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-gradient-to-r from-purple-400/10 to-pink-400/10 rounded-full blur-3xl"
+          animate={{
+            x: [0, -80, 0],
+            y: [0, 60, 0],
+            scale: [1, 0.8, 1]
+          }}
+          transition={{
+            duration: 25,
+            repeat: Infinity,
+            ease: "linear"
+          }}
+        />
+      </div>
 
-      {/* Main Content */}
-      <main>
-        <Hero />
-        <About />
-        <Skills />
-        <Projects />
-        <Contact />
+      {/* Navigation futuriste */}
+      <FuturisticNavigation />
+
+      {/* Contenu principal */}
+      <main className="relative z-10">
+        <FuturisticHero />
+        <FuturisticAbout />
+        <FuturisticSkills />
+        <FuturisticProjects />
+        <FuturisticContact />
       </main>
 
-      {/* Scroll to Top Button */}
-      <AnimatePresence>
-        {scrollY > 500 && (
-          <motion.button
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.8 }}
-            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            className="fixed bottom-8 right-8 p-3 bg-gradient-to-r from-blue-500 to-orange-500 text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 z-40"
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
+      {/* Footer futuriste */}
+      <footer className="relative z-10 bg-gradient-to-t from-slate-900 via-slate-800 to-transparent py-12 border-t border-cyan-400/20">
+        <div className="container mx-auto px-4">
+          <div className="text-center">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+              className="flex items-center justify-center gap-3 mb-6"
+            >
+              <div className="w-8 h-8 bg-gradient-to-br from-cyan-400 to-purple-600 rounded-lg flex items-center justify-center">
+                <Zap className="w-4 h-4 text-white" />
+              </div>
+              <span className="text-xl font-bold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
+                EULOGE MABIALA
+              </span>
+            </motion.div>
+            
+            <motion.p
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              viewport={{ once: true }}
+              className="text-gray-400 mb-4"
+            >
+              Architecte du futur numérique • Ingénieur en devenir • Innovateur passionné
+            </motion.p>
+            
+            <motion.div
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              viewport={{ once: true }}
+              className="text-sm text-gray-500"
+            >
+              <p>© 2025 Euloge Mabiala. Conçu avec 💙 et beaucoup de ☕</p>
+              <p className="mt-1">
+                Portfolio futuriste propulsé par{' '}
+                <span className="text-cyan-400 font-medium">React</span>,{' '}
+                <span className="text-purple-400 font-medium">GSAP</span> &{' '}
+                <span className="text-pink-400 font-medium">Framer Motion</span>
+              </p>
+            </motion.div>
+          </div>
+        </div>
+      </footer>
+
+      {/* Bouton de scroll vers le haut futuriste */}
+      <motion.button
+        ref={scrollButtonRef}
+        onClick={scrollToTop}
+        className="fixed bottom-8 right-8 w-14 h-14 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-2xl shadow-lg hover:shadow-cyan-500/25 transition-all duration-300 z-40 group overflow-hidden"
+        whileHover={{ scale: 1.1, y: -2 }}
+        whileTap={{ scale: 0.9 }}
+      >
+        <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-purple-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+        <div className="relative z-10 w-full h-full flex items-center justify-center">
+          <ArrowUp className="icon-rotate w-6 h-6 text-white" />
+        </div>
+        
+        {/* Effet de pulsation */}
+        <div className="absolute inset-0 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-2xl animate-ping opacity-20" />
+      </motion.button>
+
+      {/* Indicateur de chargement holographique */}
+      <motion.div
+        initial={{ opacity: 1 }}
+        animate={{ opacity: 0 }}
+        transition={{ duration: 1, delay: 2 }}
+        className="fixed inset-0 bg-slate-900 z-[70] flex items-center justify-center pointer-events-none"
+      >
+        <div className="text-center">
+          <motion.div
+            animate={{ rotate: 360 }}
+            transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+            className="w-16 h-16 border-4 border-cyan-400/30 border-t-cyan-400 rounded-full mx-auto mb-4"
+          />
+          <motion.p
+            animate={{ opacity: [0.5, 1, 0.5] }}
+            transition={{ duration: 1.5, repeat: Infinity }}
+            className="text-cyan-400 font-medium"
           >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18" />
-            </svg>
-          </motion.button>
-        )}
-      </AnimatePresence>
+            Initialisation du futur...
+          </motion.p>
+        </div>
+      </motion.div>
     </div>
   );
 }
 
 export default App;
-
