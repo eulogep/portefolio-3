@@ -2,12 +2,13 @@ import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { 
-  Mail, Phone, MapPin, Send, Github, Linkedin, 
+import {
+  Mail, Phone, MapPin, Send, Github, Linkedin,
   MessageCircle, Zap, Globe, Rocket, Star,
   CheckCircle, AlertCircle, User, Building
 } from 'lucide-react';
 import { personalInfo } from '../data/portfolioData';
+import AnimatedIcon from './ui/animated-icon';
 
 gsap.registerPlugin(ScrollTrigger);
 
