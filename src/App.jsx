@@ -177,61 +177,14 @@ function App() {
     <div ref={appRef} className="relative bg-slate-900 overflow-x-hidden">
       
       {/* Curseur personnalisé futuriste */}
-      <div className="custom-cursor fixed w-8 h-8 pointer-events-none z-[60] mix-blend-difference">
+      <div className="custom-cursor fixed w-8 h-8 pointer-events-none z-[60] mix-blend-difference performance-optimized">
         <div className="w-full h-full border-2 border-cyan-400 rounded-full opacity-80">
           <div className="absolute inset-1 bg-cyan-400/20 rounded-full animate-pulse" />
         </div>
       </div>
 
-      {/* Fond cosmique animé */}
-      <div className="fixed inset-0 z-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-purple-900/30 to-slate-900" />
-        
-        {/* Étoiles scintillantes */}
-        <div className="absolute inset-0">
-          {Array.from({ length: 100 }).map((_, i) => (
-            <div
-              key={i}
-              className="absolute w-1 h-1 bg-white rounded-full opacity-60 animate-pulse"
-              style={{
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-                animationDelay: `${Math.random() * 3}s`,
-                animationDuration: `${2 + Math.random() * 2}s`
-              }}
-            />
-          ))}
-        </div>
-
-        {/* Nébuleuse en mouvement */}
-        <motion.div
-          className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-cyan-400/10 to-purple-400/10 rounded-full blur-3xl"
-          animate={{
-            x: [0, 100, 0],
-            y: [0, -50, 0],
-            scale: [1, 1.2, 1]
-          }}
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            ease: "linear"
-          }}
-        />
-        
-        <motion.div
-          className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-gradient-to-r from-purple-400/10 to-pink-400/10 rounded-full blur-3xl"
-          animate={{
-            x: [0, -80, 0],
-            y: [0, 60, 0],
-            scale: [1, 0.8, 1]
-          }}
-          transition={{
-            duration: 25,
-            repeat: Infinity,
-            ease: "linear"
-          }}
-        />
-      </div>
+      {/* Fond cosmique optimisé */}
+      <OptimizedCosmicBackground />
 
       {/* Navigation futuriste */}
       <FuturisticNavigation />
