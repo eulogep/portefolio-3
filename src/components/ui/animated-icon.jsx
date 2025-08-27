@@ -142,14 +142,27 @@ const AnimatedIcon = ({
   // Sélection de l'animation
   const currentAnimation = animations[animation] || animations.hover;
 
+  // Version statique pour devices moins performants
+  if (!shouldAnimate) {
+    return (
+      <div
+        className={cn("inline-flex items-center justify-center", className)}
+        style={{ color }}
+        {...props}
+      >
+        <Icon size={size} />
+      </div>
+    );
+  }
+
   // Si c'est une animation continue (pas hover/tap)
   if (animation !== 'hover' && animation !== 'magnetic') {
     return (
       <motion.div
-        className={cn("inline-flex items-center justify-center", className)}
+        className={cn("inline-flex items-center justify-center performance-optimized", className)}
         animate={currentAnimation.animate}
         transition={currentAnimation.transition}
-        style={{ color }}
+        style={{ color, willChange: 'transform' }}
         {...props}
       >
         <Icon size={size} />
