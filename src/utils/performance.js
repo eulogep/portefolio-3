@@ -1,4 +1,9 @@
 // Utilities pour optimiser les performances des animations
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+// Enregistrement des plugins GSAP
+gsap.registerPlugin(ScrollTrigger);
 
 export const optimizeAnimations = () => {
   // Détecter les capacités du device
