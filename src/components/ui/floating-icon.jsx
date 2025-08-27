@@ -151,7 +151,7 @@ const FloatingIcon = ({
   return (
     <motion.div
       className={cn(
-        "absolute backdrop-blur-sm rounded-xl flex items-center justify-center shadow-lg border cursor-pointer group",
+        "absolute backdrop-blur-sm rounded-xl flex items-center justify-center shadow-lg border cursor-pointer group performance-optimized",
         "bg-gray-800/80 border-cyan-400/30 hover:border-cyan-400/60",
         className
       )}
@@ -159,21 +159,22 @@ const FloatingIcon = ({
         ...position,
         width: size,
         height: size,
+        willChange: 'transform, opacity'
       }}
       initial={{ opacity: 0, scale: 0 }}
-      animate={{ 
-        opacity: 1, 
+      animate={{
+        opacity: 1,
         scale: 1,
-        ...currentAnimation.animate 
+        ...currentAnimation.animate
       }}
       transition={{
-        initial: { duration: 0.5, delay: Math.random() * 0.5 },
+        initial: { duration: 0.3, delay: Math.random() * 0.3 }, // Réduit les délais
         ...currentAnimation.transition
       }}
-      whileHover={{ 
-        scale: 1.2,
+      whileHover={{
+        scale: 1.15, // Réduit l'effet de scale
         rotate: 0,
-        transition: { duration: 0.2 }
+        transition: { duration: 0.15 } // Plus rapide
       }}
       whileTap={{ scale: 0.95 }}
     >
