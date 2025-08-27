@@ -118,3 +118,103 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Optimisations de performance */
+@layer utilities {
+  .performance-optimized {
+    will-change: transform;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+  }
+
+  .gpu-accelerated {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* Animations optimisées pour les étoiles */
+@keyframes twinkle {
+  0%, 100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+
+@keyframes smoothFloat {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px);
+  }
+  33% {
+    transform: translateY(-5px) translateX(2px);
+  }
+  66% {
+    transform: translateY(2px) translateX(-3px);
+  }
+}
+
+/* Préférences motion réduite */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .animate-pulse,
+  .animate-spin,
+  .animate-bounce {
+    animation: none !important;
+  }
+}
+
+/* Optimisations pour devices moins performants */
+@media (max-width: 768px) {
+  .blur-3xl {
+    filter: blur(15px) !important;
+  }
+
+  .backdrop-blur-xl {
+    backdrop-filter: blur(8px) !important;
+  }
+}
+
+/* Amélioration des performances de scroll */
+html {
+  scroll-behavior: smooth;
+}
+
+@supports (scroll-behavior: smooth) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Optimisation pour les gradients */
+.gradient-optimized {
+  background-attachment: fixed;
+  will-change: background-position;
+}
+
+/* Curseur personnalisé optimisé */
+.custom-cursor {
+  pointer-events: none;
+  transform: translate3d(0, 0, 0);
+  will-change: transform;
+}
+
+/* Amélioration des transitions */
+.smooth-transition {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.smooth-transition-fast {
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+}
