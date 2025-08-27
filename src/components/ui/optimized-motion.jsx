@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { forwardRef } from 'react';
 import { cn } from '@/lib/utils';
-import useSmartAnimations from '@/hooks/useSmartAnimations';
+import useSmartAnimations from '../../hooks/useSmartAnimations';
 
 // Wrapper optimisé pour les animations Framer Motion
 const OptimizedMotion = forwardRef(({ 
