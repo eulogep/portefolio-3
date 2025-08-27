@@ -266,25 +266,28 @@ function App() {
         <div className="absolute inset-0 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-2xl animate-pulse opacity-10" />
       </motion.button>
 
-      {/* Indicateur de chargement holographique */}
+      {/* Indicateur de chargement optimisé */}
       <motion.div
         initial={{ opacity: 1 }}
         animate={{ opacity: 0 }}
-        transition={{ duration: 1, delay: 2 }}
-        className="fixed inset-0 bg-slate-900 z-[70] flex items-center justify-center pointer-events-none"
+        transition={{ duration: 0.8, delay: 1.5 }} // Plus rapide
+        className="fixed inset-0 bg-slate-900 z-[70] flex items-center justify-center pointer-events-none performance-optimized"
+        style={{ willChange: 'opacity' }}
       >
         <div className="text-center">
           <motion.div
             animate={{ rotate: 360 }}
-            transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-            className="w-16 h-16 border-4 border-cyan-400/30 border-t-cyan-400 rounded-full mx-auto mb-4"
+            transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }} // Plus rapide
+            className="w-12 h-12 border-3 border-cyan-400/30 border-t-cyan-400 rounded-full mx-auto mb-4" // Plus petit
+            style={{ willChange: 'transform' }}
           />
           <motion.p
-            animate={{ opacity: [0.5, 1, 0.5] }}
-            transition={{ duration: 1.5, repeat: Infinity }}
-            className="text-cyan-400 font-medium"
+            animate={{ opacity: [0.6, 1, 0.6] }}
+            transition={{ duration: 1.2, repeat: Infinity }}
+            className="text-cyan-400 font-medium text-sm"
+            style={{ willChange: 'opacity' }}
           >
-            Initialisation du futur...
+            Chargement...
           </motion.p>
         </div>
       </motion.div>
