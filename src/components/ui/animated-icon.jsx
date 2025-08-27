@@ -1,15 +1,27 @@
 import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
+import { useState, useEffect } from 'react';
 
-const AnimatedIcon = ({ 
+const AnimatedIcon = ({
   icon: Icon,
   className,
   size = 20,
   animation = 'hover',
   color = 'currentColor',
   delay = 0,
-  ...props 
+  ...props
 }) => {
+  const [shouldAnimate, setShouldAnimate] = useState(true);
+
+  useEffect(() => {
+    // Vérifier les préférences de motion
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const isLowEnd = navigator.hardwareConcurrency <= 2 || navigator.deviceMemory <= 2;
+
+    if (prefersReducedMotion || isLowEnd) {
+      setShouldAnimate(false);
+    }
+  }, []);
   
   // Différents types d'animations
   const animations = {
