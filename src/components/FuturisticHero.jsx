@@ -361,27 +361,19 @@ const FuturisticHero = () => {
 
                   {/* Icônes technologiques flottantes */}
                   {[
-                    { icon: '⚛️', position: { top: '10%', right: '10%' } },
-                    { icon: '🐍', position: { bottom: '10%', left: '10%' } },
-                    { icon: '🤖', position: { top: '10%', left: '10%' } },
-                    { icon: '🔒', position: { bottom: '10%', right: '10%' } }
+                    { type: 'react', position: { top: '10%', right: '10%' }, animation: 'spin' },
+                    { type: 'python', position: { bottom: '10%', left: '10%' }, animation: 'bounce' },
+                    { type: 'ai', position: { top: '10%', left: '10%' }, animation: 'glow' },
+                    { type: 'security', position: { bottom: '10%', right: '10%' }, animation: 'pulse' }
                   ].map((tech, index) => (
-                    <motion.div
+                    <FloatingIcon
                       key={index}
-                      className="absolute w-12 h-12 bg-gray-800/80 backdrop-blur-sm rounded-xl flex items-center justify-center text-2xl shadow-lg border border-cyan-400/30"
-                      style={tech.position}
-                      animate={{
-                        y: [0, -10, 0],
-                        rotate: [0, 5, 0, -5, 0]
-                      }}
-                      transition={{
-                        duration: 3 + index,
-                        repeat: Infinity,
-                        ease: "easeInOut"
-                      }}
-                    >
-                      {tech.icon}
-                    </motion.div>
+                      type={tech.type}
+                      position={tech.position}
+                      size={48}
+                      animation={tech.animation}
+                      glowColor={tech.type === 'react' ? '#61dafb' : tech.type === 'python' ? '#3776ab' : tech.type === 'ai' ? '#ff6b6b' : '#e74c3c'}
+                    />
                   ))}
                 </motion.div>
               </div>
