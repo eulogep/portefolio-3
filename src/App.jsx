@@ -174,7 +174,7 @@ function App() {
   };
 
   return (
-    <div ref={appRef} className="relative bg-slate-900 overflow-x-hidden">
+    <div ref={appRef} className="relative bg-slate-900 overflow-x-hidden performance-optimized">
       
       {/* Curseur personnalisé futuriste */}
       <div className="custom-cursor fixed w-8 h-8 pointer-events-none z-[60] mix-blend-difference performance-optimized">
