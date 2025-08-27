@@ -248,21 +248,22 @@ function App() {
         </div>
       </footer>
 
-      {/* Bouton de scroll vers le haut futuriste */}
+      {/* Bouton de scroll vers le haut optimisé */}
       <motion.button
         ref={scrollButtonRef}
         onClick={scrollToTop}
-        className="fixed bottom-8 right-8 w-14 h-14 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-2xl shadow-lg hover:shadow-cyan-500/25 transition-all duration-300 z-40 group overflow-hidden"
-        whileHover={{ scale: 1.1, y: -2 }}
-        whileTap={{ scale: 0.9 }}
+        className="fixed bottom-8 right-8 w-14 h-14 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-2xl shadow-lg hover:shadow-cyan-500/25 smooth-transition z-40 group overflow-hidden performance-optimized"
+        whileHover={{ scale: 1.05, y: -1 }} // Réduit l'effet
+        whileTap={{ scale: 0.95 }}
+        style={{ willChange: 'transform' }}
       >
-        <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-purple-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+        <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-purple-500 opacity-0 group-hover:opacity-100 smooth-transition" />
         <div className="relative z-10 w-full h-full flex items-center justify-center">
           <ArrowUp className="icon-rotate w-6 h-6 text-white" />
         </div>
-        
-        {/* Effet de pulsation */}
-        <div className="absolute inset-0 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-2xl animate-ping opacity-20" />
+
+        {/* Effet de pulsation réduit */}
+        <div className="absolute inset-0 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-2xl animate-pulse opacity-10" />
       </motion.button>
 
       {/* Indicateur de chargement holographique */}
