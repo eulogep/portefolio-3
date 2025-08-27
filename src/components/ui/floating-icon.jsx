@@ -112,6 +112,42 @@ const FloatingIcon = ({
   const icon = iconMap[type] || iconMap.ai;
   const currentAnimation = animationVariants[animation] || animationVariants.float;
 
+  // Version statique pour devices moins performants
+  if (!shouldAnimate) {
+    return (
+      <div
+        className={cn(
+          "absolute backdrop-blur-sm rounded-xl flex items-center justify-center shadow-lg border",
+          "bg-gray-800/80 border-cyan-400/30",
+          className
+        )}
+        style={{
+          ...position,
+          width: size,
+          height: size,
+        }}
+      >
+        {/* Icône SVG statique */}
+        <svg
+          width={size * 0.5}
+          height={size * 0.5}
+          viewBox={icon.viewBox}
+          className="drop-shadow-lg"
+        >
+          <path
+            d={icon.customPath || icon.path}
+            fill={icon.color}
+          />
+        </svg>
+
+        {/* Badge de type statique */}
+        <div className="absolute -bottom-2 -right-2 text-xs px-2 py-1 bg-gray-900/90 border border-cyan-400/40 rounded-md text-cyan-300 font-medium">
+          {type.toUpperCase()}
+        </div>
+      </div>
+    );
+  }
+
   return (
     <motion.div
       className={cn(
