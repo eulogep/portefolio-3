@@ -1,14 +1,26 @@
 import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
+import { useState, useEffect } from 'react';
 
-const FloatingIcon = ({ 
-  type, 
-  position, 
-  size = 48, 
+const FloatingIcon = ({
+  type,
+  position,
+  size = 48,
   animation = 'float',
   glowColor = '#00ffff',
-  className 
+  className
 }) => {
+  const [shouldAnimate, setShouldAnimate] = useState(true);
+
+  useEffect(() => {
+    // Optimisations pour devices moins performants
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const isLowEnd = navigator.hardwareConcurrency <= 2 || navigator.deviceMemory <= 2;
+
+    if (prefersReducedMotion || isLowEnd) {
+      setShouldAnimate(false);
+    }
+  }, []);
   
   // Mapping des types d'icônes vers leurs représentations SVG
   const iconMap = {
