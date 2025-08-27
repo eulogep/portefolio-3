@@ -43,25 +43,27 @@ function App() {
   const scrollButtonRef = useRef();
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      // Configuration globale de GSAP
-      gsap.config({
-        force3D: true,
-        nullTargetWarn: false
-      });
+    // Optimisations de performance initiales
+    const { isLowEnd, reducedMotion } = optimizeAnimations();
+    setCSSAnimationVars();
+    preloadCriticalAssets();
 
-      // Animation du bouton de scroll avec magnétisme
+    const ctx = createOptimizedGSAPContext(() => {
+      // Animation du bouton de scroll avec magnétisme (optimisée)
       if (scrollButtonRef.current) {
-        gsap.set(scrollButtonRef.current, { 
-          scale: 0.8, 
+        gsap.set(scrollButtonRef.current, {
+          scale: 0.8,
           opacity: 0,
-          rotation: -180
+          rotation: -180,
+          willChange: 'transform, opacity'
         });
 
         ScrollTrigger.create({
           start: "top -500",
           end: "max",
           toggleActions: "play none none reverse",
+          fastScrollEnd: true,
+          refreshPriority: -1,
           onEnter: () => {
             gsap.to(scrollButtonRef.current, {
               scale: 1,
