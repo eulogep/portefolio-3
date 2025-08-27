@@ -137,11 +137,11 @@ const FuturisticNavigation = () => {
               whileTap={{ scale: 0.95 }}
             >
               <div className="relative">
-                <div 
+                <div
                   ref={logoRef}
                   className="w-12 h-12 bg-gradient-to-br from-cyan-400 to-purple-600 rounded-xl flex items-center justify-center shadow-lg"
                 >
-                  <Zap className="w-6 h-6 text-white" />
+                  <AnimatedIcon icon={Zap} size={24} color="white" animation="pulse" />
                 </div>
                 <div className="absolute inset-0 bg-gradient-to-br from-cyan-400 to-purple-600 rounded-xl blur-lg opacity-30 animate-pulse" />
               </div>
@@ -171,7 +171,12 @@ const FuturisticNavigation = () => {
                   whileHover={{ scale: 1.05, y: -2 }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  <item.icon className="w-4 h-4" />
+                  <AnimatedIcon
+                    icon={item.icon}
+                    size={16}
+                    animation={activeSection === item.id ? 'glow' : 'hover'}
+                    color={activeSection === item.id ? '#00ffff' : 'currentColor'}
+                  />
                   <span>{item.label}</span>
                   
                   {activeSection === item.id && (
@@ -200,7 +205,12 @@ const FuturisticNavigation = () => {
                 whileHover={{ scale: 1.1, rotate: 90 }}
                 whileTap={{ scale: 0.9 }}
               >
-                {isDarkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+                <AnimatedIcon
+                  icon={isDarkMode ? Sun : Moon}
+                  size={20}
+                  animation="hover"
+                  color="currentColor"
+                />
               </motion.button>
               
               {/* Menu mobile */}
@@ -223,7 +233,7 @@ const FuturisticNavigation = () => {
                       exit={{ rotate: 90, opacity: 0 }}
                       transition={{ duration: 0.2 }}
                     >
-                      <X className="w-6 h-6" />
+                      <AnimatedIcon icon={X} size={24} animation="spin" color="currentColor" />
                     </motion.div>
                   ) : (
                     <motion.div
@@ -233,7 +243,7 @@ const FuturisticNavigation = () => {
                       exit={{ rotate: -90, opacity: 0 }}
                       transition={{ duration: 0.2 }}
                     >
-                      <Menu className="w-6 h-6" />
+                      <AnimatedIcon icon={Menu} size={24} animation="hover" color="currentColor" />
                     </motion.div>
                   )}
                 </AnimatePresence>
@@ -273,7 +283,12 @@ const FuturisticNavigation = () => {
                           ? 'bg-cyan-400/20 text-cyan-400'
                           : 'bg-gray-800/50 text-gray-400 group-hover:bg-cyan-400/10 group-hover:text-cyan-400'
                       }`}>
-                        <item.icon className="w-5 h-5" />
+                        <AnimatedIcon
+                          icon={item.icon}
+                          size={20}
+                          animation={activeSection === item.id ? 'pulse' : 'hover'}
+                          color={activeSection === item.id ? '#00ffff' : 'currentColor'}
+                        />
                       </div>
                       
                       <div>
