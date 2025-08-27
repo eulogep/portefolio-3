@@ -173,7 +173,7 @@ const FuturisticProjects = () => {
           className="text-center mb-16"
         >
           <div className="inline-flex items-center gap-3 px-6 py-3 bg-cyan-400/10 border border-cyan-400/30 rounded-full mb-6">
-            <Rocket className="w-5 h-5 text-cyan-400" />
+            <AnimatedIcon icon={Rocket} size={20} color="#00ffff" animation="bounce" />
             <span className="text-cyan-400 font-medium">Projets Innovants</span>
           </div>
           
@@ -217,7 +217,13 @@ const FuturisticProjects = () => {
               transition={{ delay: index * 0.1 }}
             >
               <div className="absolute inset-0 bg-gradient-to-r from-cyan-400/20 to-purple-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              <option.icon className="w-5 h-5 relative z-10" />
+              <AnimatedIcon
+                icon={option.icon}
+                size={20}
+                animation={filter === option.value ? 'glow' : 'hover'}
+                color={filter === option.value ? '#ffffff' : 'currentColor'}
+                className="relative z-10"
+              />
               <span className="relative z-10">{option.label}</span>
               <span className={`text-xs px-2 py-1 rounded-full relative z-10 ${
                 filter === option.value
@@ -241,20 +247,25 @@ const FuturisticProjects = () => {
                     onClick={() => setIsPlaying(!isPlaying)}
                     className="p-2 bg-cyan-500/20 border border-cyan-400/30 rounded-xl hover:bg-cyan-500/30 transition-colors duration-300"
                   >
-                    {isPlaying ? <Pause className="w-5 h-5 text-cyan-400" /> : <Play className="w-5 h-5 text-cyan-400" />}
+                    <AnimatedIcon
+                      icon={isPlaying ? Pause : Play}
+                      size={20}
+                      color="#00ffff"
+                      animation="pulse"
+                    />
                   </button>
                   <div className="flex gap-2">
                     <button
                       onClick={() => setCurrentSlide((prev) => (prev - 1 + filteredProjects.length) % filteredProjects.length)}
                       className="p-2 bg-gray-700/50 border border-gray-600/30 rounded-xl hover:bg-gray-600/50 transition-colors duration-300"
                     >
-                      <ChevronLeft className="w-5 h-5 text-white" />
+                      <AnimatedIcon icon={ChevronLeft} size={20} color="white" animation="hover" />
                     </button>
                     <button
                       onClick={() => setCurrentSlide((prev) => (prev + 1) % filteredProjects.length)}
                       className="p-2 bg-gray-700/50 border border-gray-600/30 rounded-xl hover:bg-gray-600/50 transition-colors duration-300"
                     >
-                      <ChevronRight className="w-5 h-5 text-white" />
+                      <AnimatedIcon icon={ChevronRight} size={20} color="white" animation="hover" />
                     </button>
                   </div>
                 </div>
@@ -295,7 +306,7 @@ const FuturisticProjects = () => {
                           </div>
                           {filteredProjects[currentSlide].featured && (
                             <div className="flex items-center gap-1 px-3 py-1 bg-gradient-to-r from-yellow-500/20 to-orange-500/20 border border-yellow-400/30 rounded-full">
-                              <Star className="w-3 h-3 text-yellow-400 fill-current" />
+                              <AnimatedIcon icon={Star} size={12} color="#fbbf24" animation="pulse" />
                               <span className="text-yellow-400 text-xs font-semibold">Projet Phare</span>
                             </div>
                           )}
@@ -418,7 +429,7 @@ const FuturisticProjects = () => {
                       whileHover={{ scale: 1.1, rotate: 5 }}
                       whileTap={{ scale: 0.9 }}
                     >
-                      <Eye className="w-5 h-5 text-gray-800" />
+                      <AnimatedIcon icon={Eye} size={20} color="#1f2937" animation="hover" />
                     </motion.button>
                     
                     {project.github && (
@@ -430,7 +441,7 @@ const FuturisticProjects = () => {
                         whileHover={{ scale: 1.1, rotate: -5 }}
                         whileTap={{ scale: 0.9 }}
                       >
-                        <Github className="w-5 h-5 text-gray-800" />
+                        <AnimatedIcon icon={Github} size={20} color="#1f2937" animation="hover" />
                       </motion.a>
                     )}
                     
@@ -443,7 +454,7 @@ const FuturisticProjects = () => {
                         whileHover={{ scale: 1.1, rotate: 5 }}
                         whileTap={{ scale: 0.9 }}
                       >
-                        <ExternalLink className="w-5 h-5 text-gray-800" />
+                        <AnimatedIcon icon={ExternalLink} size={20} color="#1f2937" animation="hover" />
                       </motion.a>
                     )}
                   </div>
