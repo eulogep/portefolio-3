@@ -173,37 +173,38 @@ const AnimatedIcon = ({
   // Pour les animations hover/magnetic
   return (
     <motion.div
-      className={cn("inline-flex items-center justify-center cursor-pointer", className)}
+      className={cn("inline-flex items-center justify-center cursor-pointer performance-optimized", className)}
       variants={currentAnimation}
       initial="rest"
       whileHover="hover"
       whileTap="tap"
-      style={{ color }}
+      style={{ color, willChange: 'transform' }}
       {...props}
     >
       <Icon size={size} />
-      
-      {/* Effet de particules pour magnetic */}
-      {animation === 'magnetic' && (
+
+      {/* Effet de particules pour magnetic (réduit pour performances) */}
+      {animation === 'magnetic' && shouldAnimate && (
         <div className="absolute inset-0 pointer-events-none">
-          {[...Array(3)].map((_, i) => (
+          {[...Array(2)].map((_, i) => ( // Réduit de 3 à 2 particules
             <motion.div
               key={i}
               className="absolute w-1 h-1 bg-current rounded-full opacity-40"
               style={{
-                left: `${30 + i * 20}%`,
-                top: `${30 + i * 20}%`
+                left: `${40 + i * 20}%`,
+                top: `${40 + i * 20}%`,
+                willChange: 'transform, opacity'
               }}
               animate={{
                 scale: [0, 1, 0],
-                opacity: [0, 0.6, 0],
-                x: [0, Math.random() * 10 - 5],
-                y: [0, Math.random() * 10 - 5]
+                opacity: [0, 0.5, 0], // Réduit l'opacité
+                x: [0, Math.random() * 8 - 4], // Réduit le mouvement
+                y: [0, Math.random() * 8 - 4]
               }}
               transition={{
-                duration: 1.5,
+                duration: 1.2, // Réduit la durée
                 repeat: Infinity,
-                delay: i * 0.2,
+                delay: i * 0.3,
                 ease: "easeOut"
               }}
             />
