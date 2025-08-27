@@ -5,6 +5,7 @@ import { TextPlugin } from 'gsap/TextPlugin';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Github, Linkedin, Mail, MapPin, ArrowDown, Code, Brain, Zap, Rocket } from 'lucide-react';
 import { personalInfo } from '../data/portfolioData';
+import FloatingIcon from './ui/floating-icon';
 
 gsap.registerPlugin(TextPlugin, ScrollTrigger);
 
