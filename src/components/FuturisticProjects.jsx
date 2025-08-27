@@ -104,13 +104,13 @@ const FuturisticProjects = () => {
 
   const getProjectIcon = (project) => {
     if (project.title.toLowerCase().includes('ai') || project.title.toLowerCase().includes('intelligence')) {
-      return <Brain className="w-6 h-6" />;
+      return <AnimatedIcon icon={Brain} size={24} color="white" animation="glow" />;
     } else if (project.title.toLowerCase().includes('security') || project.title.toLowerCase().includes('sécurité')) {
-      return <Shield className="w-6 h-6" />;
+      return <AnimatedIcon icon={Shield} size={24} color="white" animation="pulse" />;
     } else if (project.title.toLowerCase().includes('web') || project.title.toLowerCase().includes('app')) {
-      return <Globe className="w-6 h-6" />;
+      return <AnimatedIcon icon={Globe} size={24} color="white" animation="spin" />;
     }
-    return <Code className="w-6 h-6" />;
+    return <AnimatedIcon icon={Code} size={24} color="white" animation="hover" />;
   };
 
   const getStatusColor = (status) => {
