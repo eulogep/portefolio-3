@@ -278,7 +278,7 @@ function App() {
           <motion.div
             animate={{ rotate: 360 }}
             transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }} // Plus rapide
-            className="w-12 h-12 border-3 border-cyan-400/30 border-t-cyan-400 rounded-full mx-auto mb-4" // Plus petit
+            className="w-12 h-12 border-2 border-cyan-400/30 border-t-cyan-400 rounded-full mx-auto mb-4" // Plus petit
             style={{ willChange: 'transform' }}
           />
           <motion.p
