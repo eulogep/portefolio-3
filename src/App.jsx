@@ -17,6 +17,13 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowUp, Zap } from 'lucide-react';
 import AnimatedHeart from './components/ui/animated-heart';
 import AnimatedCoffee from './components/ui/animated-coffee';
+import {
+  optimizeAnimations,
+  createOptimizedGSAPContext,
+  throttle,
+  preloadCriticalAssets,
+  setCSSAnimationVars
+} from './utils/performance';
 
 // Composants futuristes
 import FuturisticNavigation from './components/FuturisticNavigation';
