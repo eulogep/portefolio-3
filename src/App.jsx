@@ -83,61 +83,80 @@ function App() {
           }
         });
 
-        // Effet de rotation continue
-        gsap.to(scrollButtonRef.current.querySelector('.icon-rotate'), {
-          rotation: 360,
-          duration: 3,
-          ease: "none",
-          repeat: -1
-        });
+        // Effet de rotation continue (optimisé)
+        if (!reducedMotion) {
+          gsap.to(scrollButtonRef.current.querySelector('.icon-rotate'), {
+            rotation: 360,
+            duration: isLowEnd ? 6 : 3,
+            ease: "none",
+            repeat: -1
+          });
+        }
       }
 
-      // Parallax global pour les sections
+      // Parallax global pour les sections (optimisé)
       const sections = gsap.utils.toArray('section');
       sections.forEach((section, index) => {
         if (section.id !== 'hero') {
-          gsap.fromTo(section, 
-            { y: 50, opacity: 0.8 },
+          gsap.fromTo(section,
+            { y: isLowEnd ? 20 : 50, opacity: 0.8 },
             {
               y: 0,
               opacity: 1,
-              duration: 1,
+              duration: isLowEnd ? 0.5 : 1,
               ease: "easeOut",
               scrollTrigger: {
                 trigger: section,
                 start: "top 80%",
                 end: "bottom 20%",
-                toggleActions: "play none none reverse"
+                toggleActions: "play none none reverse",
+                fastScrollEnd: true,
+                refreshPriority: -1
               }
             }
           );
         }
       });
 
-      // Effet de curseur personnalisé pour toute l'app
+      // Effet de curseur personnalisé optimisé
       const cursor = document.querySelector('.custom-cursor');
-      if (cursor) {
+      if (cursor && !reducedMotion && !isLowEnd) {
         let mouseX = 0, mouseY = 0;
         let cursorX = 0, cursorY = 0;
+        let isMoving = false;
 
-        document.addEventListener('mousemove', (e) => {
+        const throttledMouseMove = throttle((e) => {
           mouseX = e.clientX;
           mouseY = e.clientY;
-        });
+          isMoving = true;
+        }, 16); // 60fps max
+
+        document.addEventListener('mousemove', throttledMouseMove);
 
         const animateCursor = () => {
-          cursorX += (mouseX - cursorX) * 0.1;
-          cursorY += (mouseY - cursorY) * 0.1;
-          
-          gsap.set(cursor, {
-            x: cursorX,
-            y: cursorY
-          });
-          
+          if (isMoving) {
+            cursorX += (mouseX - cursorX) * 0.15;
+            cursorY += (mouseY - cursorY) * 0.15;
+
+            gsap.set(cursor, {
+              x: cursorX,
+              y: cursorY,
+              force3D: true
+            });
+
+            // Arrêter l'animation si le curseur est proche de la position cible
+            if (Math.abs(mouseX - cursorX) < 0.1 && Math.abs(mouseY - cursorY) < 0.1) {
+              isMoving = false;
+            }
+          }
+
           requestAnimationFrame(animateCursor);
         };
-        
+
         animateCursor();
+      } else if (cursor && (reducedMotion || isLowEnd)) {
+        // Curseur simple pour les devices moins performants
+        cursor.style.display = 'none';
       }
 
     }, appRef);
