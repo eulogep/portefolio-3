@@ -211,7 +211,7 @@ const FuturisticContact = () => {
           className="text-center mb-16"
         >
           <div className="inline-flex items-center gap-3 px-6 py-3 bg-cyan-400/10 border border-cyan-400/30 rounded-full mb-6">
-            <MessageCircle className="w-5 h-5 text-cyan-400" />
+            <AnimatedIcon icon={MessageCircle} size={20} color="#00ffff" animation="pulse" />
             <span className="text-cyan-400 font-medium">Contact</span>
           </div>
           
@@ -252,7 +252,7 @@ const FuturisticContact = () => {
                     
                     <div className="relative z-10 flex items-center gap-4">
                       <div className={`w-14 h-14 bg-gradient-to-br ${method.color} rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
-                        <method.icon className="w-7 h-7 text-white" />
+                        <AnimatedIcon icon={method.icon} size={28} color="white" animation="hover" />
                       </div>
                       
                       <div className="flex-1">
@@ -264,7 +264,7 @@ const FuturisticContact = () => {
                       </div>
                       
                       <div className="w-8 h-8 bg-gray-700/50 rounded-full flex items-center justify-center group-hover:bg-cyan-500/20 transition-colors duration-300">
-                        <Zap className="w-4 h-4 text-gray-400 group-hover:text-cyan-400" />
+                        <AnimatedIcon icon={Zap} size={16} color="currentColor" animation="hover" />
                       </div>
                     </div>
                   </div>
@@ -281,7 +281,7 @@ const FuturisticContact = () => {
               className="bg-gradient-to-br from-gray-800/30 to-gray-900/30 backdrop-blur-xl border border-gray-700/50 rounded-2xl p-6"
             >
               <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-3">
-                <Star className="w-6 h-6 text-cyan-400" />
+                <AnimatedIcon icon={Star} size={24} color="#00ffff" animation="glow" />
                 Réseaux Sociaux
               </h3>
               
@@ -298,7 +298,13 @@ const FuturisticContact = () => {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.6 + index * 0.1 }}
                   >
-                    <social.icon className="w-8 h-8 text-gray-300 mx-auto mb-2 group-hover:text-white transition-colors duration-300" />
+                    <AnimatedIcon
+                      icon={social.icon}
+                      size={32}
+                      color="currentColor"
+                      animation="magnetic"
+                      className="mx-auto mb-2 text-gray-300 group-hover:text-white transition-colors duration-300"
+                    />
                     <p className="text-sm font-medium text-gray-400 group-hover:text-white transition-colors duration-300">
                       {social.label}
                     </p>
@@ -333,7 +339,7 @@ const FuturisticContact = () => {
               
               <div className="relative z-10">
                 <div className="flex items-center gap-3 mb-8">
-                  <Rocket className="w-8 h-8 text-cyan-400" />
+                  <AnimatedIcon icon={Rocket} size={32} color="#00ffff" animation="bounce" />
                   <h3 className="text-2xl font-bold text-white">Lançons un projet</h3>
                 </div>
 
@@ -341,7 +347,7 @@ const FuturisticContact = () => {
                   <div className="grid md:grid-cols-2 gap-6">
                     <div className="form-element">
                       <label className="block text-sm font-medium text-gray-300 mb-2">
-                        <User className="w-4 h-4 inline mr-2" />
+                        <AnimatedIcon icon={User} size={16} color="currentColor" animation="hover" className="inline mr-2" />
                         Nom complet
                       </label>
                       <input
@@ -357,7 +363,7 @@ const FuturisticContact = () => {
                     
                     <div className="form-element">
                       <label className="block text-sm font-medium text-gray-300 mb-2">
-                        <Mail className="w-4 h-4 inline mr-2" />
+                        <AnimatedIcon icon={Mail} size={16} color="currentColor" animation="hover" className="inline mr-2" />
                         Email
                       </label>
                       <input
@@ -374,7 +380,7 @@ const FuturisticContact = () => {
 
                   <div className="form-element">
                     <label className="block text-sm font-medium text-gray-300 mb-2">
-                      <Building className="w-4 h-4 inline mr-2" />
+                      <AnimatedIcon icon={Building} size={16} color="currentColor" animation="hover" className="inline mr-2" />
                       Entreprise (optionnel)
                     </label>
                     <input
@@ -389,7 +395,7 @@ const FuturisticContact = () => {
 
                   <div className="form-element">
                     <label className="block text-sm font-medium text-gray-300 mb-2">
-                      <Zap className="w-4 h-4 inline mr-2" />
+                      <AnimatedIcon icon={Zap} size={16} color="currentColor" animation="hover" className="inline mr-2" />
                       Sujet
                     </label>
                     <select
@@ -410,7 +416,7 @@ const FuturisticContact = () => {
 
                   <div className="form-element">
                     <label className="block text-sm font-medium text-gray-300 mb-2">
-                      <MessageCircle className="w-4 h-4 inline mr-2" />
+                      <AnimatedIcon icon={MessageCircle} size={16} color="currentColor" animation="hover" className="inline mr-2" />
                       Message
                     </label>
                     <textarea
@@ -446,7 +452,7 @@ const FuturisticContact = () => {
                       )}
                       {formStatus === 'success' && (
                         <>
-                          <CheckCircle className="w-5 h-5" />
+                          <AnimatedIcon icon={CheckCircle} size={20} color="currentColor" animation="pulse" />
                           Message envoyé !
                         </>
                       )}
