@@ -1,67 +1,94 @@
-import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { useState, useRef } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
 
 const ParticleButton = ({ 
   children, 
-  className = "",
-  particleCount = 8,
+  className,
+  particleCount = 12,
+  particleColor = "#00ffff",
+  onClick,
   ...props 
 }) => {
-  const [isHovered, setIsHovered] = useState(false);
-  
-  const particles = Array.from({ length: particleCount }, (_, i) => i);
+  const [particles, setParticles] = useState([]);
+  const buttonRef = useRef(null);
+
+  const createParticles = (e) => {
+    if (!buttonRef.current) return;
+
+    const rect = buttonRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    const newParticles = Array.from({ length: particleCount }, (_, i) => ({
+      id: Date.now() + i,
+      x,
+      y,
+      angle: (Math.PI * 2 * i) / particleCount,
+      velocity: 2 + Math.random() * 3,
+      size: 2 + Math.random() * 3,
+      life: 1
+    }));
+
+    setParticles(newParticles);
+
+    // Appeler onClick si fourni
+    if (onClick) onClick(e);
+
+    // Nettoyer les particules après animation
+    setTimeout(() => setParticles([]), 1000);
+  };
 
   return (
     <motion.button
+      ref={buttonRef}
       className={cn(
-        "relative inline-flex items-center justify-center px-6 py-3 font-medium text-white bg-gradient-to-r from-blue-500 to-orange-500 rounded-lg overflow-hidden transition-all duration-300",
+        "relative overflow-hidden transition-all duration-300",
         className
       )}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.95 }}
+      onClick={createParticles}
+      whileHover={{ scale: 1.02 }}
+      whileTap={{ scale: 0.98 }}
       {...props}
     >
-      <span className="relative z-10">{children}</span>
+      {children}
       
-      {/* Particle Effects */}
-      {isHovered && particles.map((particle) => (
-        <motion.div
-          key={particle}
-          className="absolute w-1 h-1 bg-white rounded-full"
-          initial={{
-            x: 0,
-            y: 0,
-            opacity: 0,
-            scale: 0,
-          }}
-          animate={{
-            x: (Math.random() - 0.5) * 100,
-            y: (Math.random() - 0.5) * 100,
-            opacity: [0, 1, 0],
-            scale: [0, 1, 0],
-          }}
-          transition={{
-            duration: 0.8,
-            delay: particle * 0.1,
-            ease: "easeOut",
-          }}
-          style={{
-            left: '50%',
-            top: '50%',
-          }}
-        />
-      ))}
-      
-      {/* Shimmer Effect */}
-      <motion.div
-        className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
-        initial={{ x: '-100%' }}
-        animate={isHovered ? { x: '100%' } : { x: '-100%' }}
-        transition={{ duration: 0.6, ease: "easeInOut" }}
-      />
+      <AnimatePresence>
+        {particles.map((particle) => (
+          <motion.div
+            key={particle.id}
+            className="absolute pointer-events-none rounded-full"
+            style={{
+              left: particle.x,
+              top: particle.y,
+              width: particle.size,
+              height: particle.size,
+              backgroundColor: particleColor,
+              boxShadow: `0 0 ${particle.size * 2}px ${particleColor}`,
+            }}
+            initial={{
+              scale: 0,
+              x: 0,
+              y: 0,
+              opacity: 1
+            }}
+            animate={{
+              scale: [0, 1, 0],
+              x: Math.cos(particle.angle) * particle.velocity * 20,
+              y: Math.sin(particle.angle) * particle.velocity * 20,
+              opacity: [1, 1, 0]
+            }}
+            exit={{
+              scale: 0,
+              opacity: 0
+            }}
+            transition={{
+              duration: 0.8,
+              ease: "easeOut"
+            }}
+          />
+        ))}
+      </AnimatePresence>
     </motion.button>
   );
 };
