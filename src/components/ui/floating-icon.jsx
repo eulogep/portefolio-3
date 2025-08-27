@@ -224,28 +224,29 @@ const FloatingIcon = ({
         />
       </motion.svg>
 
-      {/* Particules flottantes */}
-      {animation === 'glow' && (
+      {/* Particules flottantes (optimisées) */}
+      {animation === 'glow' && shouldAnimate && (
         <div className="absolute inset-0 overflow-hidden rounded-xl">
-          {[...Array(3)].map((_, i) => (
+          {[...Array(2)].map((_, i) => ( // Réduit de 3 à 2 particules
             <motion.div
               key={i}
               className="absolute w-1 h-1 rounded-full"
-              style={{ 
+              style={{
                 backgroundColor: icon.color,
-                left: `${20 + i * 20}%`,
-                top: `${20 + i * 20}%`
+                left: `${30 + i * 20}%`,
+                top: `${30 + i * 20}%`,
+                willChange: 'transform, opacity'
               }}
               animate={{
                 scale: [0, 1, 0],
-                opacity: [0, 1, 0],
-                x: [0, Math.random() * 20 - 10],
-                y: [0, Math.random() * 20 - 10]
+                opacity: [0, 0.8, 0], // Réduit l'opacité max
+                x: [0, Math.random() * 15 - 7.5], // Réduit le mouvement
+                y: [0, Math.random() * 15 - 7.5]
               }}
               transition={{
-                duration: 2,
+                duration: 1.5, // Réduit la durée
                 repeat: Infinity,
-                delay: i * 0.3,
+                delay: i * 0.4,
                 ease: "easeOut"
               }}
             />
