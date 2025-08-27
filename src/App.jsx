@@ -32,6 +32,7 @@ import FuturisticAbout from './components/FuturisticAbout';
 import FuturisticSkills from './components/FuturisticSkills';
 import FuturisticProjects from './components/FuturisticProjects';
 import FuturisticContact from './components/FuturisticContact';
+import OptimizedCosmicBackground from './components/OptimizedCosmicBackground';
 
 import './App.css';
 
