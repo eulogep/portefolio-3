@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Menu, X, Moon, Sun, Zap, Home, User, Brain, Rocket, MessageCircle } from 'lucide-react';
+import AnimatedIcon from './ui/animated-icon';
 
 gsap.registerPlugin(ScrollTrigger);
 
